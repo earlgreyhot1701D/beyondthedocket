@@ -80,12 +80,13 @@ const CaseStudyGenerator: React.FC<CaseStudyGeneratorProps> = ({ project }) => {
             });
 
             if (!response.ok) {
+                const clonedResponse = response.clone();
                 let errorMsg = 'Failed to generate content';
                 try {
                     const errorData = await response.json();
-                    errorMsg = errorData.error || errorMsg;
+                    errorMsg = errorData.details || errorData.error || errorMsg;
                 } catch (e) {
-                    const text = await response.text();
+                    const text = await clonedResponse.text();
                     errorMsg = text || errorMsg;
                 }
                 throw new Error(errorMsg);
@@ -231,6 +232,9 @@ const CaseStudyGenerator: React.FC<CaseStudyGeneratorProps> = ({ project }) => {
                     <div>
                         <p className="font-bold">Error Encountered</p>
                         <p className="opacity-80">{error}</p>
+                        {error.includes('{') || error.length > 50 ? null : (
+                            <p className="text-[10px] opacity-60 mt-1 font-mono break-all">{error}</p>
+                        )}
                     </div>
                 </div>
             )}

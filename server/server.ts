@@ -3,22 +3,29 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import axios from 'axios';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Initialize Gemini
+console.log('[Server] API Key check:', process.env.GEMINI_API_KEY ? 'Present' : 'MISSING');
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-// Using 'gemini-2.0-flash-exp' as requested (User referred to it as Gemini 3 Flash)
 const modelName = "gemini-2.0-flash-exp";
 const model = genAI.getGenerativeModel({ model: modelName });
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+// In production (Docker), the frontend is in ./public
+// In local dev, we might be looking for ../dist
+const publicPath = path.join(__dirname, 'public');
+app.use(express.static(publicPath));
 
 // --- ROUTES ---
 
@@ -84,7 +91,10 @@ app.post('/api/generate-case-study', async (req, res) => {
             });
         }
 
-        res.status(500).json({ error: error.message || "Failed to generate content with Gemini." });
+        res.status(500).json({
+            error: error.message || "Failed to generate content with Gemini.",
+            details: error.stack || 'No stack trace'
+        });
     }
 });
 
@@ -130,7 +140,10 @@ app.get('/api/github/metadata', async (req, res) => {
             return res.status(404).json({ error: "GitHub repository not found." });
         }
 
-        res.status(500).json({ error: "Failed to fetch GitHub metadata." });
+        res.status(500).json({
+            error: "Failed to fetch GitHub metadata.",
+            details: error.message
+        });
     }
 });
 
