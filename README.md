@@ -40,4 +40,6 @@ npm run dev
 The project is containerized for **Google Cloud Run**. Use the provided `Dockerfile` for a seamless launch.
 
 ---
-Created with ❤️ by **La Shara Cordero**
+Created with ❤️ by **La Shara Cordero**  
+*Built with Antigravity + Claude*  
+*(The Chrome extension for real-time browser testing is a game changer for shipping fast)*
