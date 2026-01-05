@@ -2,7 +2,7 @@
 
 **Beyond the Docket** is a high-fidelity AI Builder portfolio designed for the Gemini 3.0 Hackathon. It bridges the gap between civic service and technological innovation, showcasing a "Complexity Velocity" driven career path.
 
-![Beyond the Docket Preview](/og-image.png)
+![Beyond the Docket Preview](public/og-image.jpg)
 
 ## 🏛️ The Mission
 This platform isn't just a portfolio—it's an interactive developer ecosystem. It features flagship AI projects like **Athena Clew** and **Janus Clew**, integrated with a live **Case Study Generator** powered by Gemini 2.0 Flash.
