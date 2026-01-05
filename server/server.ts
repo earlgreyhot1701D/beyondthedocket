@@ -10,19 +10,24 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // --- 1. ENVIRONMENT RESOLUTION ---
-// Resiliently look for .env in local dev and production dist structures
-const envPaths = [
-    path.join(__dirname, '.env'),
-    path.join(__dirname, '..', '.env'),
-    path.join(process.cwd(), '.env'),
-    path.join(process.cwd(), 'server', '.env')
-];
+// Check system process first (Cloud Run / Docker ENV)
+if (process.env.GEMINI_API_KEY && process.env.GITHUB_TOKEN) {
+    console.log('[Server] Environment variables detected in system process.');
+} else {
+    // Resiliently look for .env in local dev and production dist structures
+    const envPaths = [
+        path.join(__dirname, '.env'),
+        path.join(__dirname, '..', '.env'),
+        path.join(process.cwd(), '.env'),
+        path.join(process.cwd(), 'server', '.env')
+    ];
 
-for (const p of envPaths) {
-    dotenv.config({ path: p });
-    if (process.env.GEMINI_API_KEY) {
-        console.log('[Server] Environment loaded successfully from:', p);
-        break;
+    for (const p of envPaths) {
+        dotenv.config({ path: p });
+        if (process.env.GEMINI_API_KEY) {
+            console.log('[Server] Environment loaded successfully from:', p);
+            break;
+        }
     }
 }
 
