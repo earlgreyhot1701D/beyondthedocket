@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-main: #020617;
+    --bg-secondary: #0f172a;
+    --bg-tertiary: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --tech-blue: #0ea5e9;
+    --tech-blue-dark: #0369a1;
+    --energy-cyan: #06b6d4;
+    --innovation-purple: #a855f7;
+    --achievement-gold: #eab308;
+    --border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  * {
+    @apply border-border-color;
+    scrollbar-width: thin;
+    scrollbar-color: var(--tech-blue-dark) var(--bg-main);
+  }
+
+  body {
+    @apply bg-bg-main text-text-primary antialiased selection:bg-energy-cyan selection:text-white;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-playfair tracking-tight;
+  }
+}
+
+/* Cinematic Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(3, 105, 161, 0.5);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tech-blue);
+}
+
+@layer components {
+  .hero-gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-tech-blue to-innovation-purple;
+  }
+
+  .metric-number-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-achievement-gold to-tech-blue font-playfair;
+  }
+
+  .btn {
+    @apply px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 cursor-pointer inline-flex items-center gap-2;
+  }
+
+  .btn-primary {
+    @apply bg-tech-blue text-bg-main font-bold transition-all duration-300;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+  }
+
+  .btn-secondary {
+    @apply bg-tech-blue/15 text-tech-blue border border-tech-blue/30 transition-all duration-300;
+  }
+
+  .btn-secondary:hover {
+    @apply bg-tech-blue/25 border-energy-cyan text-energy-cyan;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+
+  .border-glow {
+    position: relative;
+  }
+
+  .border-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(14, 165, 233, 0.1);
+    pointer-events: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .group:hover .border-glow::after {
+    border-color: rgba(6, 182, 212, 0.3);
+  }
+
+  .cinematic-shadow {
+    box-shadow: 0 0 50px -12px rgba(14, 165, 233, 0.2);
+  }
+
+  .energy-text {
+    @apply text-energy-cyan;
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+  }
+
+  .mesh-gradient {
+    background-image:
+      radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.1) 0, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.05) 0, transparent 50%);
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tech-blue focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main transition-shadow;
+  }
+}

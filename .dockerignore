@@ -1,0 +1,17 @@
+node_modules
+dist
+.env
+.env.local
+.git
+.gitignore
+*.log
+npm-debug.log*
+.vscode
+.agent
+.gemini
+Dockerfile
+.dockerignore
+build_full.log
+build_log.txt
+build_simple.log
+tailwind_error.txt
