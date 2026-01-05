@@ -6,10 +6,10 @@ interface CaseStudyGeneratorProps {
     project?: TimelineProject;
 }
 
-type Mode = 'blog' | 'corporate';
+type Mode = 'blog' | 'professional';
 
 const CaseStudyGenerator: React.FC<CaseStudyGeneratorProps> = ({ project }) => {
-    const [mode, setMode] = useState<Mode>('corporate');
+    const [mode, setMode] = useState<Mode>('professional');
     const [formData, setFormData] = useState({
         projectName: project?.title || '',
         reportTitle: project?.title || '',
@@ -17,9 +17,9 @@ const CaseStudyGenerator: React.FC<CaseStudyGeneratorProps> = ({ project }) => {
         problem: '',
         decisions: '',
         impact: '', // for blog
-        solution: '', // for corporate
-        technical: '', // for corporate
-        results: '', // for corporate
+        solution: '', // for professional
+        technical: '', // for professional
+        results: '', // for professional
     });
 
     // Auto-fill logic
@@ -177,8 +177,8 @@ const CaseStudyGenerator: React.FC<CaseStudyGeneratorProps> = ({ project }) => {
                         <BookOpen className="w-5 h-5" /> Blog Style
                     </button>
                     <button
-                        onClick={() => setMode('corporate')}
-                        className={`flex items-center gap-3 px-8 py-3 rounded-xl text-sm font-bold transition-all ${mode === 'corporate' ? 'bg-tech-blue text-bg-main shadow-[0_0_20px_rgba(14,165,233,0.3)]' : 'text-text-secondary hover:text-text-primary'
+                        onClick={() => setMode('professional')}
+                        className={`flex items-center gap-3 px-8 py-3 rounded-xl text-sm font-bold transition-all ${mode === 'professional' ? 'bg-tech-blue text-bg-main shadow-[0_0_20px_rgba(14,165,233,0.3)]' : 'text-text-secondary hover:text-text-primary'
                             }`}
                     >
                         <Building2 className="w-5 h-5" /> Professional
