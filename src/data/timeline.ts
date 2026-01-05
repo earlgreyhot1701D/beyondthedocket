@@ -51,7 +51,7 @@ Built a RAG (Retrieval-Augmented Generation) chatbot that ingests California jur
         githubUrl: 'https://github.com/earlgreyhot1701D/ccc-ai-pdf-project',
         cta: [
             { label: '📋 View Evidence', action: 'openDetailsModal' },
-            { label: '✨ Analysis', action: 'openGeneratorModal' }
+            { label: '✨ Generate Case Study', action: 'openGeneratorModal' }
         ],
         fullCaseStudy: `
 # Cal Poly DxHub: Automated PDF Extraction
@@ -82,7 +82,7 @@ My team secured **2nd Place out of 14 high-performance teams**. The system reduc
         githubUrl: 'https://github.com/earlgreyhot1701D/janus-clew',
         cta: [
             { label: '📋 View Journey', action: 'openDetailsModal' },
-            { label: '✨ Generate Report', action: 'openGeneratorModal' }
+            { label: '✨ Generate Case Study', action: 'openGeneratorModal' }
         ],
         fullCaseStudy: `
 # Janus Clew: Evidence-backed growth tracking for indie builders
@@ -118,7 +118,7 @@ Using AWS AgentCore to read your complete project history, Janus detects pattern
         githubUrl: 'https://github.com/earlgreyhot1701D/Athena-Clew',
         cta: [
             { label: '📋 View Suite', action: 'openDetailsModal' },
-            { label: '✨ Debug Analysis', action: 'openGeneratorModal' }
+            { label: '✨ Generate Case Study', action: 'openGeneratorModal' }
         ],
         fullCaseStudy: `
 # Athena Clew Platform: The Unified Developer Ecosystem
