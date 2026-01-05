@@ -22,7 +22,11 @@ This platform isn't just a portfolio—it's an interactive developer ecosystem. 
 **[Launch Portfolio 🚀](https://beyond-the-docket-489960083310.us-west1.run.app/)**
 
 ## 🏆 The Challenge
-This project was built for the **[New Year, New You Portfolio Challenge](https://dev.to/challenges/google-ai-portfolio)** presented by **[DEV.to](https://dev.to)** and **Google AI**. It serves as a showcase of developer personality, technical skill, and the power of AI-assisted software development.
+This project was built for the **[New Year, New You Portfolio Challenge](https://dev.to/challenges/google-ai-portfolio)** presented by **[DEV.to](https://dev.to)** and **Google AI**.
+
+%}*This is a submission for the [New Year, New You Portfolio Challenge Presented by Google AI](https://dev.to/challenges/new-year-new-you-google-ai-2025-12-31)*
+
+It serves as a showcase of developer personality, technical skill, and the power of AI-assisted software development.
 
 ## 🚀 Quick Start
 ```bash
