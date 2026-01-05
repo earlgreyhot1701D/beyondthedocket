@@ -18,26 +18,23 @@ This platform isn't just a portfolio—it's an interactive developer ecosystem. 
 - **Backend**: Node.js, Express, Gemini 2.0 Flash SDK, GitHub API.
 - **Infrastructure**: Dockerized multi-stage builds for Google Cloud Run.
 
+## 🔗 Live Demo
+**[beyond-the-docket.run.app](https://beyond-the-docket-489960083310.us-west1.run.app)**
+
+## 🏆 The Challenge
+This project was built for the **[New Year, New You Portfolio Challenge](https://dev.to/challenges/google-ai-portfolio)** presented by **Google AI**. It serves as a showcase of developer personality, technical skill, and the power of AI-assisted software development.
+
 ## 🚀 Quick Start
 ```bash
 # Clone the repository
-git clone https://github.com/[your-username]/beyond-the-docket.git
-
-# Install dependencies
-npm install
-cd server && npm install
-
-# Set environment variables
-# Create .env in /server
-GEMINI_API_KEY=your_key
-GITHUB_TOKEN=your_token
-
-# Run development mode
-npm run dev
+git clone https://github.com/earlgreyhot1701D/beyondthedocket.git
 ```
 
-## 🐳 Deployment
-The project is containerized for **Google Cloud Run**. Use the provided `Dockerfile` for a seamless launch.
+## 🐳 Deployment & Tech Learned
+This project marked a significant leap in my infrastructure skills. I mastered:
+- **Docker**: Creating multi-stage production environments.
+- **Google Cloud Run**: Serverless deployment and continuous delivery (CI/CD) via Cloud Build.
+- **Express 5**: Navigating the latest changes in Node.js routing.
 
 ## 🩺 Troubleshooting
 

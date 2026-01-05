@@ -19,15 +19,18 @@ export const timelineProjects: TimelineProject[] = [
             { label: '✨ Generate Case Study', action: 'openGeneratorModal' }
         ],
         fullCaseStudy: `
-      <h3>The Challenge</h3>
-      <p>The Santa Barbara Superior Court receives hundreds of jury eligibility inquiries annually. Many can be answered through the California legal code, but the current system requires court staff to manually respond to each inquiry. This creates bottlenecks, delays responses, and limits accessibility.</p>
+# The Beginning: Santa Barbara Jury Chatbot
 
-      <h3>The Solution</h3>
-      <p>Built a RAG (Retrieval-Augmented Generation) chatbot that ingests California jury service code and uses Claude AI to provide accurate, consistent responses. Users can ask questions in natural language and receive immediate answers grounded in actual legal requirements.</p>
+## The Challenge
+The Santa Barbara Superior Court receives hundreds of jury eligibility inquiries annually. Many can be answered through the California legal code, but the current system requires court staff to manually respond to each inquiry. This creates bottlenecks, delays responses, and limits accessibility.
 
-      <h3>Technical Highlights</h3>
-      <p><strong>Architecture:</strong> AWS Bedrock (Claude inference), FAISS vector database for document retrieval, Python backend, Streamlit frontend.</p>
-      <p><strong>Key Innovation:</strong> Implemented retrieval-augmented generation so answers are cited directly from legal code—no hallucinations, full auditability.</p>
+## The Solution
+Built a RAG (Retrieval-Augmented Generation) chatbot that ingests California jury service code and uses Claude AI to provide accurate, consistent responses. Users can ask questions in natural language and receive immediate answers grounded in actual legal requirements.
+
+## Technical Highlights
+**Architecture:** AWS Bedrock (Claude inference), FAISS vector database for document retrieval, Python backend, Streamlit frontend.
+
+**Key Innovation:** Implemented retrieval-augmented generation so answers are cited directly from legal code—no hallucinations, full auditability.
     `,
         badge: {
             text: 'Public Service AI',
