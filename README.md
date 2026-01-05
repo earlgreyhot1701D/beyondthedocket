@@ -39,6 +39,18 @@ npm run dev
 ## 🐳 Deployment
 The project is containerized for **Google Cloud Run**. Use the provided `Dockerfile` for a seamless launch.
 
+## 🩺 Troubleshooting
+
+### 1. Express 5 Routing (SPA Fallback)
+This project uses **Express 5**, which introduces a new router engine and stricter path-to-regexp parsing. If you encounter issues where client-side routes return 404 on refresh:
+- Ensure the SPA fallback is implemented using `app.use()` as a final middleware rather than `app.get('*')`.
+- This ensures compatibility with the new regex patterns while serving index.html for React Router.
+
+### 2. ESM & Environment Variables
+Since the backend uses **ES Modules (`"type": "module"`)**:
+- Standard Node `__dirname` is unavailable. We use `fileURLToPath` to resolve the script location.
+- The `.env` loader is configured to check multiple directory levels, supporting both raw TypeScript execution (`ts-node/esm`) and compiled production code (`dist/server.js`).
+
 ---
 Created with ❤️ by **La Shara Cordero**  
 *Built with Antigravity + Claude*  
