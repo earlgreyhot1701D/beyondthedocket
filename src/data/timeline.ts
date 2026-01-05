@@ -108,7 +108,7 @@ Using AWS AgentCore to read your complete project history, Janus detects pattern
         subtitle: 'The World\'s First Autonomous Debugging Agent',
         badge: { text: '🚀 Gemini 3 Hackathon', type: 'tech' },
         description: "Featuring Theseus Clew: an autonomous agent that detects 'déjà vu' patterns across your projects. It connects past fixes to current errors using Gemini 3 Deep Thinking.",
-        videoUrl: null,
+        videoUrl: 'https://youtu.be/vKHIfoEc800',
         stats: [
             { label: 'Reasoning', value: 'Gemini 3' },
             { label: 'Sync', value: 'Cross-Project' }
