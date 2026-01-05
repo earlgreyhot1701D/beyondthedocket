@@ -9,149 +9,143 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: path.join(__dirname, '.env') });
+// --- 1. ENVIRONMENT RESOLUTION ---
+// Resiliently look for .env in local dev and production dist structures
+const envPaths = [
+    path.join(__dirname, '.env'),
+    path.join(__dirname, '..', '.env'),
+    path.join(process.cwd(), '.env'),
+    path.join(process.cwd(), 'server', '.env')
+];
+
+for (const p of envPaths) {
+    dotenv.config({ path: p });
+    if (process.env.GEMINI_API_KEY) {
+        console.log('[Server] Environment loaded successfully from:', p);
+        break;
+    }
+}
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Initialize Gemini
-console.log('[Server] API Key check:', process.env.GEMINI_API_KEY ? 'Present' : 'MISSING');
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-const modelName = "gemini-2.0-flash-exp";
-const model = genAI.getGenerativeModel({ model: modelName });
-
+// --- 2. MIDDLEWARE ---
 app.use(cors());
 app.use(express.json());
-// In production (Docker), the frontend is in ./public
-// In local dev, we might be looking for ../dist
+
+// Serving Static Assets
 const publicPath = path.join(__dirname, 'public');
+const fallbackPath = path.join(__dirname, '..', 'dist'); // Local dev fallback
 app.use(express.static(publicPath));
+app.use(express.static(fallbackPath));
 
-// --- ROUTES ---
+// --- 3. AI & API INITIALIZATION ---
+const apiKey = process.env.GEMINI_API_KEY || '';
+const genAI = new GoogleGenerativeAI(apiKey);
+// gemini-2.0-flash-exp is the current high-performance benchmark for this stack
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
 
-// Health check (Internal)
+// --- 4. API ROUTES ---
+
+// Health & Diagnostics
 app.get('/api/health', (req, res) => {
-    res.json({ status: "ok", message: "Beyond the Docket Backend is Running" });
+    res.json({
+        status: "ok",
+        message: "Beyond the Docket Backend is Running",
+        timestamp: new Date().toISOString(),
+        keyPresent: apiKey ? (apiKey.length > 10 ? 'YES' : 'TOO_SHORT') : 'MISSING'
+    });
 });
 
-// 1. Gemini Case Study Generation
+// Case Study Generation
 app.post('/api/generate-case-study', async (req, res) => {
-    const { projectName, mode } = req.body;
+    const { projectName, mode, problem, solution, technical, results, reportTitle } = req.body;
 
-    console.log(`[Gemini] Incoming request for: ${projectName} (${mode})`);
-
-    if (!process.env.GEMINI_API_KEY) {
-        console.error('[Gemini Error] API Key is missing in environment variables!');
+    if (!apiKey) {
         return res.status(500).json({ error: "Gemini API Key is not configured on the server." });
     }
 
     try {
-        const { githubUrl, problem, decisions, impact, solution, technical, results, reportTitle } = req.body;
-        let prompt = '';
+        console.log(`[Gemini] Generating ${mode} for: ${projectName}`);
 
-        if (mode === 'blog') {
-            prompt = `Write a narrative, personal blog post.
-      Main Title: ${reportTitle || projectName}
-      Project Context: ${projectName}
-      GitHub: ${githubUrl}
-      Problem: ${problem}
-      Decisions: ${decisions}
-      Impact: ${impact}
-      Use a friendly, editorial tone. Focus on the journey and learnings. Output as Markdown. Start with a # Heading using the Main Title.`;
-        } else {
-            prompt = `Write a professional, structural case study.
-      Main Title: ${reportTitle || projectName}
-      Project Context: ${projectName}
-      GitHub: ${githubUrl}
-      Problem/Challenge: ${problem}
-      Solution Overview: ${solution}
-      Technical Highlights: ${technical}
-      Impact & Results: ${results}
-      Use a clear, business-ready tone. Focus on metrics and technical excellence. Output as Markdown. Start with a # Heading using the Main Title.`;
-        }
+        const prompt = mode === 'blog' ?
+            `Write a personal, narrative blog post for a developer portfolio.
+             Title: ${reportTitle || projectName}
+             Bio: ${problem}
+             Tech Stack: ${technical}
+             Focus on the journey and technical growth. Output in Markdown.` :
+            `Write a professional, structural case study for a software architecture portfolio.
+             Title: ${reportTitle || projectName}
+             Challenge: ${problem}
+             Solution: ${solution}
+             Technical Highlights: ${technical}
+             Metrics/Results: ${results}
+             Focus on technical excellence and business impact. Output in Markdown.`;
 
-        console.log(`[Gemini] Sending prompt to model: ${modelName} (length: ${prompt.length})...`);
         const result = await model.generateContent(prompt);
-        const response = await result.response;
-
-        if (!response) {
-            console.error('[Gemini Error] Received empty response from model.');
-            return res.status(500).json({ error: "Gemini returned an empty response." });
-        }
-
-        const text = response.text();
-        console.log(`[Gemini] Success. Generated ${text.length} characters.`);
+        const text = result.response.text();
         res.json({ content: text });
     } catch (error: any) {
-        console.error('[Gemini Error]', error.message || error);
-
-        if (error.status === 429) {
-            return res.status(429).json({
-                error: "Gemini is currently busy (Rate Limit). Please wait 60 seconds."
-            });
-        }
-
+        console.error('[Gemini Error]', error.message);
         res.status(500).json({
-            error: error.message || "Failed to generate content with Gemini.",
-            details: error.stack || 'No stack trace'
-        });
-    }
-});
-
-// 2. GitHub Metadata
-app.get('/api/github/metadata', async (req, res) => {
-    const { url } = req.query;
-
-    if (!url || typeof url !== 'string') {
-        return res.status(400).json({ error: "Github URL is required." });
-    }
-
-    // Extract owner and repo from URL
-    // Matches expressions like: https://github.com/owner/repo
-    const match = url.match(/github\.com\/([^/]+)\/([^/]+)/);
-    if (!match) {
-        return res.status(400).json({ error: "Invalid GitHub URL." });
-    }
-
-    const [, owner, repo] = match;
-    console.log(`[GitHub] Fetching metadata for: ${owner}/${repo}`);
-
-    try {
-        const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}`, {
-            headers: {
-                Authorization: `token ${process.env.GITHUB_TOKEN}`
-            }
-        });
-
-        const data = {
-            stars: response.data.stargazers_count,
-            language: response.data.language,
-            updatedAt: response.data.updated_at,
-            forks: response.data.forks_count,
-            topics: response.data.topics
-        };
-
-        console.log(`[GitHub] Metadata fetched successfully.`);
-        res.json(data);
-    } catch (error: any) {
-        console.error('[GitHub Error]', error.message);
-
-        if (error.response?.status === 404) {
-            return res.status(404).json({ error: "GitHub repository not found." });
-        }
-
-        res.status(500).json({
-            error: "Failed to fetch GitHub metadata.",
+            error: "Gemini failed to generate content.",
             details: error.message
         });
     }
 });
 
-// Catch-all for SPA routing (MUST be last)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// GitHub Metadata Proxy
+app.get('/api/github/metadata', async (req, res) => {
+    const { url } = req.query;
+    if (!url || typeof url !== 'string') return res.status(400).json({ error: "URL required" });
+
+    const match = url.match(/github\.com\/([^/]+)\/([^/]+)/);
+    if (!match) return res.status(400).json({ error: "Invalid GitHub URL" });
+
+    const [, owner, repo] = match;
+    try {
+        const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}`, {
+            headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` }
+        });
+
+        res.json({
+            stars: response.data.stargazers_count,
+            language: response.data.language,
+            updatedAt: response.data.updated_at,
+            forks: response.data.forks_count,
+            topics: response.data.topics
+        });
+    } catch (error: any) {
+        res.status(500).json({ error: "GitHub fetch failed", details: error.message });
+    }
 });
 
+// --- 5. FALLBACK / SPA HANDLER ---
+// Using middleware instead of wildcards to ensure Express 5 compatibility
+app.use((req, res) => {
+    if (req.path.startsWith('/api')) {
+        return res.status(404).json({ error: 'Endpoint not found' });
+    }
+
+    const possibleIndices = [
+        path.join(publicPath, 'index.html'),
+        path.join(fallbackPath, 'index.html'),
+        path.join(__dirname, '..', 'public', 'index.html')
+    ];
+
+    // Try to send index.html if it exists to support client-side routing
+    for (const loc of possibleIndices) {
+        try {
+            return res.sendFile(loc);
+        } catch (e) {
+            // Continue searching if file doesn't exist
+        }
+    }
+
+    res.status(404).send('Not Found');
+});
+
+// --- 6. START ---
 app.listen(port, () => {
-    console.log(`🚀 Backend server running at http://localhost:${port}`);
+    console.log(`🚀 Production-ready backend active on port ${port}`);
 });
