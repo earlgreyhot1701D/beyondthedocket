@@ -19,7 +19,7 @@ This platform isn't just a portfolio—it's an interactive developer ecosystem. 
 - **Infrastructure**: Dockerized multi-stage builds for Google Cloud Run.
 
 ## 🔗 Live Demo
-**[beyond-the-docket.run.app](https://beyond-the-docket-489960083310.us-west1.run.app)**
+**[Launch Portfolio 🚀](https://beyond-the-docket-489960083310.us-west1.run.app/)**
 
 ## 🏆 The Challenge
 This project was built for the **[New Year, New You Portfolio Challenge](https://dev.to/challenges/google-ai-portfolio)** presented by **Google AI**. It serves as a showcase of developer personality, technical skill, and the power of AI-assisted software development.

@@ -18,8 +18,7 @@ export const timelineProjects: TimelineProject[] = [
             { label: '📋 Details', action: 'openDetailsModal' },
             { label: '✨ Generate Case Study', action: 'openGeneratorModal' }
         ],
-        fullCaseStudy: `
-# The Beginning: Santa Barbara Jury Chatbot
+        fullCaseStudy: `# The Beginning: Santa Barbara Jury Chatbot
 
 ## The Challenge
 The Santa Barbara Superior Court receives hundreds of jury eligibility inquiries annually. Many can be answered through the California legal code, but the current system requires court staff to manually respond to each inquiry. This creates bottlenecks, delays responses, and limits accessibility.
@@ -30,8 +29,7 @@ Built a RAG (Retrieval-Augmented Generation) chatbot that ingests California jur
 ## Technical Highlights
 **Architecture:** AWS Bedrock (Claude inference), FAISS vector database for document retrieval, Python backend, Streamlit frontend.
 
-**Key Innovation:** Implemented retrieval-augmented generation so answers are cited directly from legal code—no hallucinations, full auditability.
-    `,
+**Key Innovation:** Implemented retrieval-augmented generation so answers are cited directly from legal code—no hallucinations, full auditability.`,
         badge: {
             text: 'Public Service AI',
             type: 'tech'
