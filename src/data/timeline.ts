@@ -75,8 +75,8 @@ My team secured **2nd Place out of 14 high-performance teams**. The system reduc
         description: "Janus turns your code into measurable evidence. It analyzes your complexity progression (e.g., 6.2 → 8.1) using AWS AgentCore to prove technical mastery across projects.",
         videoUrl: 'https://youtu.be/hIGzf3F6F1A',
         stats: [
-            { label: 'Complexity Velocity', value: '2.5x' },
-            { label: 'AgentCore', value: 'Guided' }
+            { label: 'Powered By', value: 'AWS Bedrock Agentcore' },
+            { label: 'Career Growth', value: 'Verified' }
         ],
         techStack: ['AWS AgentCore', 'AWS Bedrock', 'Python 3.11', 'React', 'Git Analysis'],
         githubUrl: 'https://github.com/earlgreyhot1701D/janus-clew',
