@@ -36,7 +36,7 @@ The portfolio is interactive. Click around. Here's what you'll find:
 
 **4 Major Projects** (Timeline view showing my 6-month journey):
 - **Jury Eligibility Chatbot (July)** - RAG-powered, production-ready
-- **PDF Text Extractor (August)** - Selected as 1 of 100 from 1,300 applicants for Cal Poly DxHub. Team took 2nd place
+- **PDF Text Extractor (August)** - Cohort Member & AI Builder (Selected 1 of 100). Built the core PDF engine. Team took 2nd place
 - **Janus-Clew (December)** - Won AWS Vibe Hackathon. Growth tracking using complexity metrics
 - **Athena-Clew (January)** - Built for Gemini 3 Hackathon. Autonomous debugging with Deep Thinking
 
@@ -75,7 +75,7 @@ The best feature? The **case study generator**. Keep reading to understand why I
 **Concrete example**: The PDF extractor project.
 
 When I apply for a job, I write:
-> "Led development of PDF extraction engine for accessibility platform. Implemented custom OCR integration with PyPDF2, achieving 95% accuracy. Selected as 1 of 100 fellows from 1,300 applicants. Team placed 2nd out of 14."
+> "Led development of PDF extraction engine for accessibility platform. Implemented custom OCR integration with PyPDF2, achieving 95% accuracy. Selected for innovation cohort (100 from 1,300 applicants). Team placed 2nd out of 14."
 
 When I write a blog post, I write:
 > "We had 36 hours and a crazy ambitious goal. My teammate Cai and I stayed up until 1am debugging a cursed .env file. But Friday morning it worked. Our team took 2nd place. Here's what we learned about working under pressure."

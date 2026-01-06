@@ -39,9 +39,9 @@ Built a RAG (Retrieval-Augmented Generation) chatbot that ingests California jur
         id: 'pdf-extractor',
         date: 'August 2025',
         title: 'Cal Poly DxHub: AI Accessibility',
-        subtitle: 'Selected Fellow & AI Lead',
+        subtitle: 'Cohort Member & AI Builder',
         badge: { text: '🏆 2nd Place Winner (out of 14 teams)', type: 'winner' },
-        description: 'Selected as 1 of 100 from 1,300 applicants for the DxHub Fellowship. Focused on building the core PDF extraction engine that powered institutional accessibility innovations.',
+        description: 'Selected for the DxHub Cloud Innovation Cohort (100 selected from 1,300 applicants). Architected the core PDF extraction engine that powered our team\'s accessibility solution.',
         videoUrl: 'https://youtu.be/fUj6u3S_Hsg',
         stats: [
             { label: 'Selected', value: '1 of 100' },
@@ -60,7 +60,7 @@ Built a RAG (Retrieval-Augmented Generation) chatbot that ingests California jur
 Institutional accessibility often fails at the document level. Manually tagging thousands of PDFs for screen readers is a multi-year, multi-million dollar problem.
 
 ## What I Built
-As one of 100 selected fellows from an applicant pool of 1,300, I was tasked with solving the extraction layer of a larger accessibility suite. I built a Python-based engine that identifies structural elements (headings, tables, lists) within complex academic PDFs with high precision.
+As a member of the Cloud Innovation Cohort (selected 1 of 100), I was tasked with solving the extraction layer of a larger accessibility suite. I engineered a Python-based system that identifies structural elements (headings, tables, lists) within complex academic PDFs with high precision.
 
 ## The Result
 My team secured **2nd Place out of 14 high-performance teams**. The system reduced the manual effort for document tagging by approximately 85%, providing a scalable path for institutional compliance.
