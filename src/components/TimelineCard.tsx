@@ -55,10 +55,16 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ project, onOpenDetails, onO
                         {project.title}
                     </div>
                     {project.githubUrl && (
-                        <div className="flex items-center gap-2 text-[10px] font-bold text-tech-blue mt-2 opacity-80 uppercase tracking-widest leading-none">
+                        <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex items-center gap-2 text-[10px] font-bold text-tech-blue mt-2 opacity-80 uppercase tracking-widest leading-none hover:text-energy-cyan transition-colors w-fit relative z-20"
+                        >
                             <Github className="w-3 h-3" />
-                            <span className="break-all">{project.githubUrl.replace('https://github.com/', '')}</span>
-                        </div>
+                            <span className="break-all hover:underline decoration-tech-blue/30 underline-offset-4">{project.githubUrl.replace('https://github.com/', '')}</span>
+                        </a>
                     )}
                 </div>
 
