@@ -4,6 +4,10 @@
 
 ---
 
+> **Feb 2026 Update**: Since the original submission, the `gemini-2.0-flash-exp` model and `@google/generative-ai` SDK have been deprecated. To ensure this portfolio remains live and functional for judges and visitors, I have migrated the backend to the stable **Gemini 2.5 Flash** model using the new Google Gen AI SDK (`@google/genai`).
+
+---
+
 ## About Me
 
 Six months ago, I was a Judicial Services Manager for Santa Barbara Superior Court. My job: answer jury service questions. People would call with the same questions over and over.
@@ -61,7 +65,7 @@ The best feature? The **case study generator**. Keep reading to understand why I
 
 **Backend**:
 - Node.js + Express (minimal, focused)
-- **Gemini 2.0 Flash API** (case study generation)
+- **Gemini 2.5 Flash API** (Updated from 2.0/1.5 due to deprecation. Migrated to the new `@google/genai` SDK for 2026 stability.)
 - GitHub API (live metadata syncing)
 
 **Infrastructure**:
@@ -153,7 +157,7 @@ But honestly? These projects solved what I needed solved. The portfolio is done.
 
 Built with:
 - React 19 + TypeScript
-- Gemini 2.0 Flash (case study generation)
+- Gemini 2.5 Flash (case study generation)
 - Google Cloud Run (hosting)
 - Antigravity (development environment)
 
