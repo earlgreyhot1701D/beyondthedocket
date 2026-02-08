@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import axios from 'axios';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,9 +46,7 @@ app.use(express.static(fallbackPath));
 
 // --- 3. AI & API INITIALIZATION ---
 const apiKey = process.env.GEMINI_API_KEY || '';
-const genAI = new GoogleGenerativeAI(apiKey);
-// gemini-2.0-flash-exp is the current high-performance benchmark for this stack
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+const genai = new GoogleGenAI({ apiKey });
 
 // --- 4. API ROUTES ---
 
@@ -87,8 +85,13 @@ app.post('/api/generate-case-study', async (req, res) => {
              Metrics/Results: ${results}
              Focus on technical excellence and business impact. Output in Markdown.`;
 
-        const result = await model.generateContent(prompt);
-        const text = result.response.text();
+        // Updated for @google/genai SDK
+        const result = await genai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: prompt
+        });
+
+        const text = result.text;
         res.json({ content: text });
     } catch (error: any) {
         console.error('[Gemini Error]', error.message);
